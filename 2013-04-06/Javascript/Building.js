@@ -1,0 +1,1 @@
+var building = STRUCT([pillars,floors, facadeEast, facadeWest, north, south, facadePianoTerra, murettobalconcino,scala1_trasl, scala2_trasl, scala3_trasl, Esempiofinestra]);
