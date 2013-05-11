@@ -111,7 +111,7 @@ def wheelCar (r_tire,R_tire,thickness,n_spokes):
 carWheel = wheelCar(r_tire,R_tire,wheelThickness,n_spokes)
 
 carWheel = T([1,2,3])([wideHalf-R_tire/2,-5.5,-(h_coffer+0.8*h_shell)])(carWheel)
-#VIEW(carWheel)
+VIEW(carWheel)
 
 carWheelPair = STRUCT(NN(2)([carWheel,T(2)(11.5)]))
 #VIEW(carWheelPair)

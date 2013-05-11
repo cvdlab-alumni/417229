@@ -70,7 +70,7 @@ steeringWheel = R([2,3])(PI/6)(steeringWheel)
 steeringWheel = T([1,2,3])([0.7*roofWideHalf,-1.5,-0.3])(steeringWheel)
 
 
-#VIEW(steeringWheel)
+VIEW(steeringWheel)
 
 mockUp = STRUCT([mockUp,steeringWheel])
 VIEW(mockUp)
