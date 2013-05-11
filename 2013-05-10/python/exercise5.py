@@ -47,7 +47,7 @@ def semicircle (r):
 	return circonf
 
 
-# Costruisce una carrozzeria di una macchina
+# Costruisce una carrozzeria di una macchina !INCOMPLETA PURTROPPO!
 
 
 dom1D = INTERVALS(1)(32)
