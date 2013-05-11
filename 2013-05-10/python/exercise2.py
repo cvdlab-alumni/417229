@@ -3,8 +3,8 @@
 
 # Measures
 
-dom1D = INTERVALS(1)(32)
-dom2D = PROD([INTERVALS(1)(32),INTERVALS(1)(32)])	
+dom1D = INTERVALS(1)(16)
+dom2D = PROD([INTERVALS(1)(16),INTERVALS(1)(16)])	
 
 wide = 6.5
 wideHalf = wide/2
@@ -97,6 +97,18 @@ upperProfileTot = STRUCT([upperProfile, S(1)(-1)(upperProfile)])
 # Lateral Profile
 
 
+## Costruisce un semicerchio di raggio r.
+
+
+def semicircle (r):
+	dom1d=INTERVALS(PI)(18)
+	def mapping(p):
+		alpha=p[0]
+		return [r*COS(alpha), r*SIN(alpha)];
+	circonf = MAP(mapping)(dom1d)
+	return circonf
+
+
 curve7 = CUBICHERMITE(S1)([ [wideHalf,0,h_parab],[wideHalf,roofLength,h_parab],
 							[0,roofLength,roofLength/5],[0,roofLength,-roofLength/5] ])
 
@@ -104,7 +116,7 @@ curve8 = BEZIER(S1)([ [wideHalf,roofLength+rearScreenProjection+trunkLength,h_tr
 					  [wideHalf,-frontScreenProjection,0] ])
 
 curve9 = CUBICHERMITE(S1)([ [wideHalf,-frontScreenProjection,0],
-					  		[wideHalf,-(frontScreenProjection+cofferLength),-h_coffer],
+					  		[wideHalf,-(frontScreenProjection+1.2*cofferLength),-h_coffer],
 					   	  	[0,-cofferLength,-cofferLength/15],[0,-cofferLength,-cofferLength] ])
 curve10 = CUBICHERMITE(S1)([ [wideHalf,roofLength+rearScreenProjection,1.4*h_trunk],
 					   		 [wideHalf,roofLength+rearScreenProjection+trunkLength,h_trunk],
@@ -115,24 +127,32 @@ curve1_3 = BEZIER(S1)([ [wideHalf,0,h_parab],
 curve2_5 = BEZIER(S1)([ [wideHalf,roofLength,h_parab],
 					    [wideHalf,roofLength+rearScreenProjection,1.4*h_trunk] ])
 
-curve12 = BEZIER(S1)([ [wideHalf,-(frontScreenProjection+cofferLength),-h_coffer],
-					   [wideHalf,-(frontScreenProjection+cofferLength),-(h_coffer+h_shell)] ])
+curve12 = BEZIER(S1)([ [wideHalf,-(frontScreenProjection+1.2*cofferLength),-h_coffer],
+					   [wideHalf,-(frontScreenProjection+1.2*cofferLength),-(h_coffer+h_shell)] ])
 
-curve14first = BEZIER(S1)([ [wideHalf,-(frontScreenProjection+cofferLength),-(h_coffer+h_shell)],
-							[wideHalf,-(frontScreenProjection+cofferLength-1.5),-(h_coffer+h_shell)] ])
+curve14first = BEZIER(S1)([ [wideHalf,-(frontScreenProjection+1.2*cofferLength),-(h_coffer+h_shell)],
+							[wideHalf,-(frontScreenProjection+1.2*cofferLength-1.5),-(h_coffer+h_shell)] ])
 
-curve14second = BEZIER(S1)([ [wideHalf,-(frontScreenProjection+cofferLength-1.5),-(h_coffer+h_shell)],
-							 [wideHalf,-(frontScreenProjection+cofferLength-1.5),-(h_coffer+h_shell-2*diameterShellWhell/3)],
-							 [wideHalf,-(frontScreenProjection+cofferLength-4.5),-(h_coffer+h_shell-2*diameterShellWhell/3)],
-							 [wideHalf,-(frontScreenProjection+cofferLength-4.5),-(h_coffer+h_shell)] ])
+#curve14second = BEZIER(S1)([ [wideHalf,-(frontScreenProjection+1.2*cofferLength-1.5),-(h_coffer+h_shell)],
+#							 [wideHalf,-(frontScreenProjection+1.2*cofferLength-1.5),-(h_coffer+h_shell-2*diameterShellWhell/3)],
+#							 [wideHalf,-(frontScreenProjection+1.2*cofferLength-4.5),-(h_coffer+h_shell-2*diameterShellWhell/3)],
+#							 [wideHalf,-(frontScreenProjection+1.2*cofferLength-4.5),-(h_coffer+h_shell)] ])
 
-curve14third = BEZIER(S1)([ [wideHalf,-(frontScreenProjection+cofferLength-4.5),-(h_coffer+h_shell)],
+curve14second = R([2,3])(PI/2)(semicircle(diameterShellWhell/2) )
+curve14second = R([1,2])(PI/2)(curve14second)
+curve14second = T([1,2,3])([wideHalf,-5.5,-(h_coffer+h_shell)])(curve14second)
+
+curve14third = BEZIER(S1)([ [wideHalf,-(frontScreenProjection+1.2*cofferLength-4.5),-(h_coffer+h_shell)],
 							[wideHalf,0.9*roofLength,-(h_coffer+h_shell)] ])
 
-curve14fourth = BEZIER(S1)([ [wideHalf,0.9*roofLength,-(h_coffer+h_shell)],
-							 [wideHalf,0.9*roofLength,-(h_coffer+h_shell-2*diameterShellWhell/3)],
-							 [wideHalf,0.9*roofLength+diameterShellWhell,-(h_coffer+h_shell-2*diameterShellWhell/3)],
-							 [wideHalf,0.9*roofLength+diameterShellWhell,-(h_coffer+h_shell)] ])
+#curve14fourth = BEZIER(S1)([ [wideHalf,0.9*roofLength,-(h_coffer+h_shell)],
+#							 [wideHalf,0.9*roofLength,-(h_coffer+h_shell-2*diameterShellWhell/3)],
+#							 [wideHalf,0.9*roofLength+diameterShellWhell,-(h_coffer+h_shell-2*diameterShellWhell/3)],
+#							 [wideHalf,0.9*roofLength+diameterShellWhell,-(h_coffer+h_shell)] ])
+
+curve14fourth = R([2,3])(PI/2)(semicircle(diameterShellWhell/2) )
+curve14fourth = R([1,2])(PI/2)(curve14fourth)
+curve14fourth = T([1,2,3])([wideHalf,6,-(h_coffer+h_shell)])(curve14fourth)
 
 curve14fifth = BEZIER(S1)([ [wideHalf,0.9*roofLength+diameterShellWhell,-(h_coffer+h_shell)],
 							[wideHalf,roofLength+rearScreenProjection+trunkLength+0.1,-(h_coffer+2*h_shell/3)] ])
@@ -152,15 +172,15 @@ curve9M = MAP(curve9)(dom2D)
 curve10M = MAP(curve10)(dom2D)
 curve12M = MAP(curve12)(dom2D)
 curve14firstM = MAP(curve14first)(dom2D)
-curve14secondM = MAP(curve14second)(dom2D)
+#curve14secondM = MAP(curve14second)(dom2D)
 curve14thirdM = MAP(curve14third)(dom2D)
-curve14fourthM = MAP(curve14fourth)(dom2D)
+#curve14fourthM = MAP(curve14fourth)(dom2D)
 curve14fifthM = MAP(curve14fifth)(dom2D)
 curve13M = MAP(curve13)(dom2D)
 curve1_3M = MAP(curve1_3)(dom2D)
 curve2_5M = MAP(curve2_5)(dom2D)
 
-curve14M = STRUCT([curve14firstM,curve14secondM,curve14thirdM,curve14fourthM,curve14fifthM])
+curve14M = STRUCT([curve14firstM,curve14second,curve14thirdM,curve14fourth,curve14fifthM])
 
 
 lateralProfile = STRUCT([curve7M,curve8M,curve9M,curve10M,curve12M,curve13M,curve14M,curve1_3M,curve2_5M])
