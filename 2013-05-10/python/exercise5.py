@@ -180,11 +180,13 @@ rear = COLOR([0.75,0.07,0.07])(rear)
 
 surfaceFrontal = STRUCT([roof,windscreen,coffer,rearWindscreen,trunk,front,rear])
 
+
+
 surfaceLateral = STRUCT([lateralSuperior,lateralInferior])
 
 surface = STRUCT([surfaceFrontal,surfaceLateral])
 
-
+VIEW(surface)
 
 
 surfaceTot = STRUCT([surface, S(1)(-1)(surface)])
