@@ -2,8 +2,8 @@
 
 
 
-/* La funzione larToObj(model) accetta in input un modello lar `model`, definito come coppia 
-(un array) [v, fv], dove v è l'array dei vertici del modello, e fv è la matrice compatta delle 
+/* La funzione larToObj(model) accetta in input un modello lar `model`, definito come coppia [v, fv], 
+dove v è l'array dei vertici del modello, e fv è la matrice compatta delle 
 facce 2d del modello. In output restituisce in uscita il testo (una stringa) che rappresenta 
 il contenuto del file Obj. */
 
@@ -12,21 +12,20 @@ il contenuto del file Obj. */
 var larToObj = function(v,fv) {
   
    var string = "#Obj File" +'\n';
-
    string = string + "#List of Vertices (2 coordinates [x,y])" +'\n';
   
    for(i = 0; i < v.length; i++){
-   		string = string + "v " + v[i][0] + " " + v[i][1] + " ";
+   		string = string + "v " + v[i][0] + " " + v[i][1] + '\n';
    }
   
    string = string + "# Face Definitions" +'\n';
 
    for(i = 0; i < fv.length; i++){
    		string = string + "f ";
-   		for(j = 0; j< fv[i].length; j++){
+   		for(j = 0; j < fv[i].length; j++){
    			string = string + fv[i][j] + " ";
    			if(j === (fv[i].length)-1 )
-   			string = string + "\n";
+   				string = string + "\n";
    		}
    }
    return string;
