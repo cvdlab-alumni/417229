@@ -55,6 +55,7 @@ diskInternal = COLOR([0.93,0.93,0.91])(diskInternal);
 diskInternal = T([2])([0.001])(diskInternal);
 var basement = STRUCT([diskExternal,diskInternal]);
 
+
 /* Surface 1. */
 
 var dom2Dcircle = PROD1x1([INTERVALS(1)(36),INTERVALS(2*PI)(72)]);
